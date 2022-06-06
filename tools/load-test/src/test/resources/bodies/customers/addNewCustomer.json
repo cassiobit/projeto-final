@@ -1,0 +1,8 @@
+{
+  "name": "${name}",
+  "email": "${email}",
+  "documentInformation": {
+    "number": "${document}",
+    "taxIdType": "${taxIdType}"
+  }
+}
