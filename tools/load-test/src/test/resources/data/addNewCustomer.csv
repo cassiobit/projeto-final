@@ -1,6 +1,6 @@
-name,email,document,taxIdType
-User One,userone@company.com,46165334075,CPF
-User Two,usertwo@company.com,27614902076,CPF
-User Three,userthree@company.com,21964050006,CPF
-User Four,userfour@company.com,12606713052,CPF
-User Five,userfive@company.com,36938497060,CPF
+name,email,document,taxIdType,zipCode,street,city,state,country
+User One,userone@company.com,46165334075,CPF,1,Street One,City One,State One,Country One
+User Two,usertwo@company.com,27614902076,CPF,2,Street Two,City Two,State Two,Country Two
+User Three,userthree@company.com,21964050006,CPF,3,Street Three,City Three,State Three,Country Three
+User Four,userfour@company.com,12606713052,CPF,4,Street Four,City Four,State Four,Country Four
+User Five,userfive@company.com,36938497060,CPF,5,Street Five,City Five,State Five,Country Five

@@ -7,5 +7,6 @@ namespace Store.Domain.Customers.Dtos
         public string Name { get; set; }
         public string Email { get; set; }
         public DocumentDto DocumentInformation { get; set; }
+        public AddressDto Address { get; set; }
     }
 }

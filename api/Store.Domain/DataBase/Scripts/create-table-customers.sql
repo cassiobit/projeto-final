@@ -2,5 +2,6 @@ CREATE TABLE Customers (
 	Id TEXT  PRIMARY KEY,
    	Name TEXT  NOT NULL,
 	Email TEXT  NOT NULL,
-	Document TEXT  NOT NULL
+	Document TEXT  NOT NULL,
+	Address TEXT  NOT NULL
 );

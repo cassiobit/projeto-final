@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 using Store.Domain.Common;
+using Store.Domain.Dtos;
 
 namespace Store.Domain.Entities
 {
@@ -10,12 +11,13 @@ namespace Store.Domain.Entities
         {
         }
 
-        public Customer(string name, string email, string taxIdType, string document)
+        public Customer(string name, string email, string taxIdType, string document, string address)
         {
             Name = name;
             Email = email;
             TaxIdType = taxIdType;
             Document = document;
+            Address = address;
         }
 
         public string Name { get; private set; }
@@ -24,6 +26,7 @@ namespace Store.Domain.Entities
         [NotMapped]
         public string TaxIdType { get; private set; }
         public string Document { get; private set; }
+        public string Address { get; private set; }
 
         public bool IsValid()
         {
@@ -32,6 +35,7 @@ namespace Store.Domain.Entities
             v.RuleFor(x => x.Email).NotEmpty().EmailAddress();
             v.RuleFor(x => x.TaxIdType).NotEmpty().Must(y => Constants.BrazilianTaxIdType.Equals(y));
             v.RuleFor(x => x.Document).NotEmpty().Must(y => y.All(z => char.IsDigit(z))).Must(_ => HasValidBrazilianDocument());
+            v.RuleFor(x => x.Address).NotEmpty();
 
             ValidationResult = v.Validate(this);
             return ValidationResult.IsValid;

@@ -4,5 +4,13 @@
   "documentInformation": {
     "number": "${document}",
     "taxIdType": "${taxIdType}"
-  }
+  },
+  "address":{
+    "zipCode": "${zipCode}",
+    "street": "${street}",
+    "number": 15,
+    "city": "${city}",
+    "state": "${state}",
+    "country": "${country}"
+}
 }

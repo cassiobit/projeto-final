@@ -1,3 +1,4 @@
+using System.Text;
 using Store.Domain.Customers.Dtos;
 using Store.Domain.DataBase;
 using Store.Domain.Dtos;
@@ -8,7 +9,7 @@ namespace Store.Domain.Services
 {
     public class CustomerService : ICustomerService
     {
-        public readonly AppDbContext _database;
+        private readonly AppDbContext _database;
 
         public CustomerService(AppDbContext database)
         {
@@ -22,7 +23,8 @@ namespace Store.Domain.Services
                 name: newCustomer.Name,
                 email: newCustomer.Email,
                 taxIdType: newCustomer.DocumentInformation.TaxIdType, 
-                document: newCustomer.DocumentInformation.Number
+                document: newCustomer.DocumentInformation.Number,
+                address: newCustomer.Address.ToString()
             );
 
             if(!brazilianCustomer.IsValid()){
