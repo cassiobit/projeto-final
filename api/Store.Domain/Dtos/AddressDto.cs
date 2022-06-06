@@ -1,4 +1,3 @@
-using System.Text;
 using Store.Domain.Common;
 
 namespace Store.Domain.Dtos
@@ -15,21 +14,19 @@ namespace Store.Domain.Dtos
 
         public override string ToString()
         {
-            StringBuilder addressBuilder = new StringBuilder();
+            string fullAddress = Street;
+            fullAddress = fullAddress + Constants.AddressStreetNumberSeparator;
+            fullAddress = fullAddress + Number;
+            fullAddress = fullAddress + Constants.AddressDefaultSeparator;
+            fullAddress = fullAddress + City;
+            fullAddress = fullAddress + Constants.AddressDefaultSeparator;
+            fullAddress = fullAddress + State;
+            fullAddress = fullAddress + Constants.AddressDefaultSeparator;
+            fullAddress = fullAddress + Country;
+            fullAddress = fullAddress + Constants.AddressDefaultSeparator;
+            fullAddress = fullAddress + ZipCode;
 
-            addressBuilder.Append(Street);
-            addressBuilder.Append(Constants.AddressStreetNumberSeparator);
-            addressBuilder.Append(Number);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(City);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(State);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(Country);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(ZipCode);
-
-            return addressBuilder.ToString();
+            return fullAddress;
         }
     }
 }
