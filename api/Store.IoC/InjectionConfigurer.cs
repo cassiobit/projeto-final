@@ -5,15 +5,18 @@ using Store.Domain.Services;
 using Store.Domain.Services.Interfaces;
 using Store.Domain.DataBase;
 
-namespace Store.IoC;
-public class InjectionConfigurer
+namespace Store.IoC
 {
-    public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+    public class InjectionConfigurer
     {
-        var log = Log.ForContext(typeof(InjectionConfigurer));
+        public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+        {
+            var log = Log.ForContext(typeof(InjectionConfigurer));
 
-        log.Information("Injetando dependências");
-        services.AddDbContext<AppDbContext>();
-        services.AddScoped<ICustomerService, CustomerService>();
+            log.Information("Injetando dependências");
+            services.AddDbContext<AppDbContext>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddSingleton<ILoggingService, LoggingService>();
+        }
     }
 }

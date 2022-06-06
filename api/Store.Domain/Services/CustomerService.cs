@@ -1,4 +1,4 @@
-using System.Text;
+using System.Threading.Tasks;
 using Store.Domain.Customers.Dtos;
 using Store.Domain.DataBase;
 using Store.Domain.Dtos;
@@ -10,10 +10,12 @@ namespace Store.Domain.Services
     public class CustomerService : ICustomerService
     {
         private readonly AppDbContext _database;
+        private readonly ILoggingService _logger;
 
-        public CustomerService(AppDbContext database)
+        public CustomerService(AppDbContext database, ILoggingService logger)
         {
             _database = database;
+            _logger = logger;
         }
 
 
@@ -22,14 +24,17 @@ namespace Store.Domain.Services
             var brazilianCustomer = new Customer(
                 name: newCustomer.Name,
                 email: newCustomer.Email,
-                taxIdType: newCustomer.DocumentInformation.TaxIdType, 
+                taxIdType: newCustomer.DocumentInformation.TaxIdType,
                 document: newCustomer.DocumentInformation.Number,
                 address: newCustomer.Address.ToString()
             );
 
-            if(!brazilianCustomer.IsValid()){
+            if (!brazilianCustomer.IsValid())
+            {
                 return new GenericResultDto(brazilianCustomer.ValidationResult);
             }
+
+            _logger.LogGCInfo();
 
             await _database.Customers.AddAsync(brazilianCustomer);
             await _database.SaveChangesAsync();

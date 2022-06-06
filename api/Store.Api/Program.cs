@@ -1,3 +1,9 @@
+using System;
+using System.IO;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Store.IoC;
 
 var builder = WebApplication.CreateBuilder(args);

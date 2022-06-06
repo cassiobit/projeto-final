@@ -5,7 +5,7 @@ namespace Store.Domain.Dtos
 {
     public class AddressDto
     {
-        
+
         public string ZipCode { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
@@ -13,11 +13,10 @@ namespace Store.Domain.Dtos
         public string State { get; set; }
         public string Country { get; set; }
 
-        private static StringBuilder addressBuilder = new StringBuilder();
+        public override string ToString()
+        {
+            StringBuilder addressBuilder = new StringBuilder();
 
-        public override string ToString(){
-            addressBuilder.Clear();
-            
             addressBuilder.Append(Street);
             addressBuilder.Append(Constants.AddressStreetNumberSeparator);
             addressBuilder.Append(Number);

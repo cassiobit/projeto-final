@@ -1,4 +1,5 @@
 using FluentValidation.Results;
+using System;
 
 namespace Store.Domain.Dtos
 {

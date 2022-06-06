@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation.Results;
+using System;
 
 namespace Store.Domain.Entities
 {

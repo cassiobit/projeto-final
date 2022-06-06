@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace Store.Domain.Services.Interfaces
 {
-    public interface ICustomerService
+    public interface ILoggingService
     {
-        Task<GenericResultDto> AddNewCustomer(NewCustomerDto newCustomer);
+      void LogGCInfo();
     }
 }
