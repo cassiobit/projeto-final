@@ -43,64 +43,76 @@ namespace Store.Domain.Entities
 
         private bool HasValidBrazilianDocument()
         {
-            if (Document.Length != 11)
+            if (Document == null)
             {
                 return false;
             }
 
-            if (Document.Equals("00000000000") ||
-                Document.Equals("11111111111") ||
-                Document.Equals("22222222222") ||
-                Document.Equals("33333333333") ||
-                Document.Equals("44444444444") ||
-                Document.Equals("55555555555") ||
-                Document.Equals("66666666666") ||
-                Document.Equals("77777777777") ||
-                Document.Equals("88888888888") ||
-                Document.Equals("99999999999"))
+            var documentIndex = 0;
+            var digit1Total = 0;
+            var digit2Total = 0;
+
+            bool identicDigits = true;
+
+            var lastDigitProcessed = -1;
+
+            var validatorDigit1 = 0;
+            var validatorDigit2 = 0;
+
+            foreach (var digitCharacter in Document)
+            {
+                var digit = digitCharacter - Constants.DocumentReferenceCharacter;
+                if (documentIndex != 0 && lastDigitProcessed != digit)
+                {
+                    identicDigits = false;
+                }
+
+                lastDigitProcessed = digit;
+                if (documentIndex < 9)
+                {
+                    digit1Total += digit * (10 - documentIndex);
+                    digit2Total += digit * (11 - documentIndex);
+                }
+                else if (documentIndex == 9)
+                {
+                    validatorDigit1 = digit;
+                }
+                else if (documentIndex == 10)
+                {
+                    validatorDigit2 = digit;
+                }
+
+                documentIndex++;
+
+            }
+
+            if (documentIndex > 11)
             {
                 return false;
             }
 
-            int digit1Total = 0;
-            int digit2Total = 0;
-
-            int[] cpfDigits = new int[11];
-
-            for (int i = 0; i < Document.Length; i++)
+            if (identicDigits)
             {
-                cpfDigits[i] = int.Parse(Document[i].ToString());
+                return false;
             }
 
-            for (int i = 0; i < cpfDigits.Length - 2; i++)
-            {
-                digit1Total += cpfDigits[i] * (10 - i);
-                digit2Total += cpfDigits[i] * (11 - i);
-            }
-
-            int digit1 = digit1Total % 11;
+            var digit1 = digit1Total % 11;
             digit1 = digit1 < 2
                 ? 0
                 : 11 - digit1;
 
-            if (cpfDigits[9] != digit1)
+            if (validatorDigit1 != digit1)
             {
                 return false;
             }
 
             digit2Total += digit1 * 2;
-
-            int digit2 = digit2Total % 11;
+            var digit2 = digit2Total % 11;
             digit2 = digit2 < 2
                 ? 0
                 : 11 - digit2;
 
-            if (cpfDigits[10] != digit2)
-            {
-                return false;
-            }
-
-            return true;
+            return validatorDigit2 == digit2;
         }
     }
 }
