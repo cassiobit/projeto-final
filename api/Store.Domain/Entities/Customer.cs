@@ -28,22 +28,25 @@ namespace Store.Domain.Entities
         public string Document { get; private set; }
         public string Address { get; private set; }
 
+        [NotMapped]
+        private static InlineValidator<Customer> _validator = new InlineValidator<Customer>();
         public bool IsValid()
         {
-            var v = new InlineValidator<Customer>();
-            v.RuleFor(x => x.Name).NotEmpty();
-            v.RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            v.RuleFor(x => x.TaxIdType).NotEmpty().Must(y => Constants.BrazilianTaxIdType.Equals(y));
-            v.RuleFor(x => x.Document).NotEmpty().Must(y => y.All(z => char.IsDigit(z))).Must(_ => HasValidBrazilianDocument());
-            v.RuleFor(x => x.Address).NotEmpty();
+            _validator.RuleFor(x => x.Name).NotEmpty();
+            _validator.RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            _validator.RuleFor(x => x.TaxIdType).NotEmpty().Must(y => Constants.BrazilianTaxIdType.Equals(y));
+            _validator.RuleFor(x => x.Document).NotEmpty()
+                .Must(y => y.All(z => char.IsDigit(z)))
+                .Must(z => HasValidBrazilianDocument(z));
+            _validator.RuleFor(x => x.Address).NotEmpty();
 
-            ValidationResult = v.Validate(this);
+            ValidationResult = _validator.Validate(this);
             return ValidationResult.IsValid;
         }
 
-        private bool HasValidBrazilianDocument()
+        private static bool HasValidBrazilianDocument(string cpf)
         {
-            if (Document == null)
+            if (cpf == null)
             {
                 return false;
             }
@@ -59,7 +62,7 @@ namespace Store.Domain.Entities
             var validatorDigit1 = 0;
             var validatorDigit2 = 0;
 
-            foreach (var digitCharacter in Document)
+            foreach (var digitCharacter in cpf)
             {
                 var digit = digitCharacter - Constants.DocumentReferenceCharacter;
                 if (documentIndex != 0 && lastDigitProcessed != digit)

@@ -13,24 +13,24 @@ namespace Store.Domain.Dtos
         public string State { get; set; }
         public string Country { get; set; }
 
-        private static StringBuilder addressBuilder = new StringBuilder();
+        private static StringBuilder _addressBuilder = new StringBuilder();
 
         public override string ToString(){
-            addressBuilder.Clear();
+            _addressBuilder.Clear();
             
-            addressBuilder.Append(Street);
-            addressBuilder.Append(Constants.AddressStreetNumberSeparator);
-            addressBuilder.Append(Number);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(City);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(State);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(Country);
-            addressBuilder.Append(Constants.AddressDefaultSeparator);
-            addressBuilder.Append(ZipCode);
+            _addressBuilder.Append(Street);
+            _addressBuilder.Append(Constants.AddressStreetNumberSeparator);
+            _addressBuilder.Append(Number);
+            _addressBuilder.Append(Constants.AddressDefaultSeparator);
+            _addressBuilder.Append(City);
+            _addressBuilder.Append(Constants.AddressDefaultSeparator);
+            _addressBuilder.Append(State);
+            _addressBuilder.Append(Constants.AddressDefaultSeparator);
+            _addressBuilder.Append(Country);
+            _addressBuilder.Append(Constants.AddressDefaultSeparator);
+            _addressBuilder.Append(ZipCode);
 
-            return addressBuilder.ToString();
+            return _addressBuilder.ToString();
         }
     }
 }
