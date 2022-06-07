@@ -6,11 +6,11 @@ import io.gatling.core.Predef._
 abstract class BaseSimulation extends Simulation {
   def scn: String = Utils.getProperty("LT_SCENARIO", "addNewCustomerConstant")
 
-  def userCount: Int = Utils.getProperty("LT_USERS", "7").toInt
+  def userCount: Int = Utils.getProperty("LT_USERS", "5").toInt
 
-  def rampDuration: Int = Utils.getProperty("LT_RAMP_DURATION", "60").toInt
+  def rampDuration: Int = Utils.getProperty("LT_RAMP_DURATION", "120").toInt
 
-  def constantDuration: Int = Utils.getProperty("LT_CONSTANT_DURATION", "60").toInt
+  def constantDuration: Int = Utils.getProperty("LT_CONSTANT_DURATION", "120").toInt
 
   def maxDuration: Int = Utils.getProperty("LT_MAX_DURATION", "2").toInt
 
