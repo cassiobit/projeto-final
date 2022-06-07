@@ -8,9 +8,9 @@ abstract class BaseSimulation extends Simulation {
 
   def userCount: Int = Utils.getProperty("LT_USERS", "6").toInt
 
-  def rampDuration: Int = Utils.getProperty("LT_RAMP_DURATION", "120").toInt
+  def rampDuration: Int = Utils.getProperty("LT_RAMP_DURATION", "240").toInt
 
-  def constantDuration: Int = Utils.getProperty("LT_CONSTANT_DURATION", "120").toInt
+  def constantDuration: Int = Utils.getProperty("LT_CONSTANT_DURATION", "240").toInt
 
   def maxDuration: Int = Utils.getProperty("LT_MAX_DURATION", "2").toInt
 
