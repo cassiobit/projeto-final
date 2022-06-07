@@ -28,19 +28,18 @@ namespace Store.Domain.Entities
         public string Document { get; private set; }
         public string Address { get; private set; }
 
-        [NotMapped]
-        private static InlineValidator<Customer> _validator = new InlineValidator<Customer>();
         public bool IsValid()
         {
-            _validator.RuleFor(x => x.Name).NotEmpty();
-            _validator.RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            _validator.RuleFor(x => x.TaxIdType).NotEmpty().Must(y => Constants.BrazilianTaxIdType.Equals(y));
-            _validator.RuleFor(x => x.Document).NotEmpty()
+            var v = new InlineValidator<Customer>();
+            v.RuleFor(x => x.Name).NotEmpty();
+            v.RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            v.RuleFor(x => x.TaxIdType).NotEmpty().Must(y => Constants.BrazilianTaxIdType.Equals(y));
+            v.RuleFor(x => x.Document).NotEmpty()
                 .Must(y => y.All(z => char.IsDigit(z)))
                 .Must(z => HasValidBrazilianDocument(z));
-            _validator.RuleFor(x => x.Address).NotEmpty();
+            v.RuleFor(x => x.Address).NotEmpty();
 
-            ValidationResult = _validator.Validate(this);
+            ValidationResult = v.Validate(this);
             return ValidationResult.IsValid;
         }
 
